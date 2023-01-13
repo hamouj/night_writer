@@ -1,0 +1,3 @@
+class EnglishTranslator
+  
+end
