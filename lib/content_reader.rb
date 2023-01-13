@@ -13,4 +13,12 @@ class ContentReader
   def confirmation_message
     "Created #{ARGV[1]} containing #{@character_count} characters"
   end
+
+  def split_content
+    split_content = []
+    content.each do |line|
+      split_content << line.split(//)
+    end
+    split_content
+  end
 end
