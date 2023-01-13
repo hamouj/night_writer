@@ -1,5 +1,9 @@
-class EnglishTranslator
+class EnglishTranslator < ContentReader
+  attr_reader :braille_content
 
+  def initialize(locations)
+    super(locations)
+  end
 
   def dictionary
     b1 = ".."
@@ -36,5 +40,13 @@ class EnglishTranslator
       "z" => [b2, b3, b4],
       " " => [b1, b1, b1]
     }
+  end
+
+  def split_content(content)
+    split_content = []
+    content.each do |line|
+    split_content << line.split(//)
+    end
+    split_content
   end
 end
