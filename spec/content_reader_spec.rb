@@ -15,4 +15,13 @@ describe ContentReader do
       expect(content_reader.braille_text).to be_a(File)
     end
   end
+
+  describe '#confirmation_message' do
+    it 'returns a confirmation message' do
+      ARGV = ["message.txt", "braille.txt"]
+      allow(content_reader.english_text).to receive(:size).and_return(43)
+
+      expect(content_reader.confirmation_message).to eq('Created braille.txt containing 43 characters')
+    end
+  end
 end
