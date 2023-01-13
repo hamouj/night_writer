@@ -25,4 +25,12 @@ describe ContentReader do
       expect(content_reader.confirmation_message).to eq('Created braille.txt containing 43 characters')
     end
   end
+
+  describe '#content' do
+    it 'returns the content of the #english_text file' do
+      allow(IO).to receive(:readlines).and_return('This is the sample message')
+
+      expect(content_reader.content).to eq('This is the sample message')
+    end
+  end
 end
