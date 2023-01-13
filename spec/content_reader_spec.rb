@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 require './lib/content_reader'
 
 describe ContentReader do
