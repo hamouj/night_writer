@@ -33,4 +33,12 @@ describe ContentReader do
       expect(content_reader.content).to eq('This is the sample message')
     end
   end
+
+  describe '#split_content' do
+    it 'splits lines into characters' do
+      allow(content_reader).to receive(:content).and_return(["a b c"])
+
+      expect(content_reader.split_content).to eq([["a", " ", "b", " ", "c"]])
+    end
+  end
 end
