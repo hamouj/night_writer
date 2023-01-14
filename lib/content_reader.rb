@@ -26,4 +26,10 @@ class ContentReader
   def night_reader_confirmation_message
     "Created #{File.basename(@english_text)} containing #{@braille_text_character_count} characters"
   end
+
+  def split_braille_text_content
+    set_of_twos = braille_text_content.map {|line| line.scan(/../)}
+    split_letters = set_of_twos[0].zip(set_of_twos[1], set_of_twos[2])
+    braille_split_content = split_letters.map {|letter| letter.join}
+  end
 end
