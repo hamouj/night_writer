@@ -3,12 +3,16 @@ require './lib/english_translator'
 require './lib/content_reader'
 
 describe EnglishTranslator do
+  File.open('sample.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
+
   let(:english_translator) {EnglishTranslator.new({
-    :english_text => 'message.txt',
-    :braille_text => 'braille.txt'})}
+    :english_text => 'sample.txt',
+    :braille_text => 'braille_sample.txt'
+  })}
   let(:content_reader) {ContentReader.new({
-    :english_text => 'message.txt',
-    :braille_text => 'braille.txt'})}
+    :english_text => 'sample.txt',
+    :braille_text => 'braille_sample.txt'
+  })}
 
   describe '#initialize' do
     it 'exists' do
@@ -29,6 +33,12 @@ describe EnglishTranslator do
       allow(english_translator).to receive(:content).and_return(["a"])
 
       expect(english_translator.translate.chomp).to eq("0.\n..\n..")
+    end
+
+    it 'ignores unknown characters' do
+      allow(english_translator).to receive(:content).and_return(["!"])
+
+      expect(english_translator.translate.chomp).to eq("\n\n")
     end
   end
 end
