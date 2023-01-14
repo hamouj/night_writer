@@ -2,9 +2,12 @@ require './spec/spec_helper'
 require './lib/content_reader'
 
 describe ContentReader do
+  File.open('sample.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
+
   let(:content_reader) {ContentReader.new({
-    :english_text => 'message.txt',
-    :braille_text => 'braille.txt'})}
+    :english_text => 'sample.txt',
+    :braille_text => 'braille_sample.txt'
+  })}
 
   describe '#initialize' do
     it 'exists' do
@@ -20,7 +23,6 @@ describe ContentReader do
   describe '#confirmation_message' do
     it 'returns a confirmation message' do
       ARGV = ["message.txt", "braille.txt"]
-      allow(content_reader.english_text).to receive(:size).and_return(43)
 
       expect(content_reader.confirmation_message).to eq('Created braille.txt containing 43 characters')
     end
@@ -28,9 +30,7 @@ describe ContentReader do
 
   describe '#content' do
     it 'returns the content of the #english_text file' do
-      allow(IO).to receive(:readlines).and_return('This is the sample message')
-
-      expect(content_reader.content).to eq('This is the sample message')
+      expect(content_reader.content).to eq(["the quick brown fox jumps over the lazy ", "dog"])
     end
   end
 
