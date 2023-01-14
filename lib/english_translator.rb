@@ -42,8 +42,8 @@ class EnglishTranslator < ContentReader
   end
 
   def translate
-    number_of_lines = content.size
-    english_text_split_content = split_content
+    number_of_lines = english_text_content.size
+    split_content = split_english_text_content
 
     line_1 = []
     line_2 = []
@@ -51,7 +51,7 @@ class EnglishTranslator < ContentReader
     
     n=0
     while n != number_of_lines
-      english_text_split_content[n].each do |character|
+      split_content[n].each do |character|
         dictionary.each do |letter, braille|
           if character == letter
             line_1 << "#{braille[0]}"
