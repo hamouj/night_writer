@@ -14,7 +14,7 @@ class ContentReader
   end
 
   def night_writer_confirmation_message
-    "Created #{ARGV[1]} containing #{@english_text_character_count} characters"
+    "Created #{File.basename(@braille_text)} containing #{@english_text_character_count} characters"
   end
 
   def split_english_text_content
@@ -26,6 +26,6 @@ class ContentReader
   end
 
   def night_reader_confirmation_message
-    "Created #{ARGV[1]} containing #{@braille_text_character_count} characters"
+    "Created #{File.basename(@english_text)} containing #{@braille_text_character_count} characters"
   end
 end
