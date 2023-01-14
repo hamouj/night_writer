@@ -33,7 +33,7 @@ describe ContentReader do
     end
   end
 
-  describe '#english_text_split_content' do
+  describe '#split_english_text_content' do
     it 'splits lines into characters' do
       allow(content_reader).to receive(:english_text_content).and_return(["a b c"])
 
@@ -50,6 +50,14 @@ describe ContentReader do
   describe '#braille_text_content' do
     it 'returns the content of the #braille_text file' do
       expect(content_reader.braille_text_content).to eq([".00.00000.0...0.0.0..00.0.0....00.00.0\n", "0.....0.0..0..0.00..0.0.0..0..00.0..00\n", "0...0.0.0.......0.....0.0.....0...000.\n"])
+    end
+  end
+
+  describe '#split_braille_text_content' do
+    it 'splits lines into characters' do
+      allow(content_reader).to receive(:braille_text_content).and_return(["0...0...00\n", "....0.....\n", ".........."])
+
+      expect(content_reader.split_braille_text_content).to eq(["0.....", "......", "0.0...", "......", "00...."])
     end
   end
 end
