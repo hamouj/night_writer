@@ -19,4 +19,12 @@ describe BrailleTranslator do
       expect(braille_translator).to be_a(BrailleTranslator)
     end
   end
+
+  describe '#dictionary' do
+    it 'returns a hash with braille letters(keys) and english translation(values)' do
+      expect(braille_translator.dictionary["0....."]).to eq("a")
+      expect(braille_translator.dictionary["00..0."]).to eq("m")
+      expect(braille_translator.dictionary["......"]).to eq(" ")
+    end
+  end
 end
