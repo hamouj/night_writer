@@ -50,4 +50,10 @@ describe ContentReader do
       expect(content_reader.night_reader_confirmation_message).to eq('Created message.txt containing 19 characters')
     end
   end
+
+  describe '#braille_text_content' do
+    it 'returns the content of the #braille_text file' do
+      expect(content_reader.braille_text_content).to eq([".00.00000.0...0.0.0..00.0.0....00.00.0\n", "0.....0.0..0..0.00..0.0.0..0..00.0..00\n", "0...0.0.0.......0.....0.0.....0...000.\n"])
+    end
+  end
 end
