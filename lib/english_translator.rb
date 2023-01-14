@@ -1,5 +1,4 @@
 class EnglishTranslator < ContentReader
-  attr_reader :braille_content
 
   def initialize(locations)
     super(locations)
@@ -42,11 +41,32 @@ class EnglishTranslator < ContentReader
     }
   end
 
-  def split_content(content)
-    split_content = []
-    content.each do |line|
-    split_content << line.split(//)
+  def translate
+    number_of_lines = content.size
+    english_text_split_content = split_content
+
+    line_1 = []
+    line_2 = []
+    line_3 = []
+    
+    n=0
+    while n != number_of_lines
+    english_text_split_content[n].each do |character|
+      dictionary.each do |letter, braille|
+        if character == letter
+          line_1 << "#{braille[0]}"
+          line_2 << "#{braille[1]}"
+          line_3 << "#{braille[2]}"
+        end
+      end
     end
-    split_content
+    braille_translation = "#{line_1.join}\n#{line_2.join}\n#{line_3.join}\n"
+    braille_text.write(braille_translation)
+    line_1.clear
+    line_2.clear
+    line_3.clear
+    n+=1
+    end
+    braille_translation
   end
 end
