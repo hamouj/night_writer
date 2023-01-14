@@ -24,10 +24,11 @@ describe EnglishTranslator do
     end
   end
 
-  describe '#split_content()' do
-    it 'splits lines into characters' do
-      allow(content_reader).to receive(:content).and_return(["a b c"])
-      expect(english_translator.split_content(content_reader.content)).to eq([["a", " ", "b", " ", "c"]])
+  describe '#translate()' do
+    it 'translate the english text to braille' do
+      allow(english_translator).to receive(:content).and_return(["a"])
+
+      expect(english_translator.translate.chomp).to eq("0.\n..\n..")
     end
   end
 end
