@@ -28,13 +28,13 @@ describe ContentReader do
     end
   end
 
-  describe '#content' do
+  describe '#english_text_content' do
     it 'returns the content of the #english_text file' do
       expect(content_reader.english_text_content).to eq(["the quick brown fox jumps over the lazy ", "dog"])
     end
   end
 
-  describe '#split_content' do
+  describe '#english_text_split_content' do
     it 'splits lines into characters' do
       allow(content_reader).to receive(:english_text_content).and_return(["a b c"])
 
