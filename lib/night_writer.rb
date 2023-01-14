@@ -13,4 +13,4 @@ english_translator = EnglishTranslator.new({
 
 english_translator.translate
 
-p content_reader.confirmation_message
+p content_reader.night_writer_confirmation_message
