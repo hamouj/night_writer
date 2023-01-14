@@ -18,11 +18,9 @@ class ContentReader
   end
 
   def split_english_text_content
-    english_text_split_content = []
-    english_text_content.each do |line|
-      english_text_split_content << line.split(//)
+    english_text_split_content = english_text_content.map do |line|
+      line.split(//)
     end
-    english_text_split_content
   end
 
   def night_reader_confirmation_message
