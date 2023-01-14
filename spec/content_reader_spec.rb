@@ -20,11 +20,11 @@ describe ContentReader do
     end
   end
 
-  describe '#confirmation_message' do
+  describe '#night_writer_confirmation_message' do
     it 'returns a confirmation message' do
       ARGV = ["message.txt", "braille.txt"]
 
-      expect(content_reader.confirmation_message).to eq('Created braille.txt containing 43 characters')
+      expect(content_reader.night_writer_confirmation_message).to eq('Created braille.txt containing 43 characters')
     end
   end
 
