@@ -30,13 +30,13 @@ describe EnglishTranslator do
 
   describe '#translate()' do
     it 'translate the english text to braille' do
-      allow(english_translator).to receive(:content).and_return(["a"])
+      allow(english_translator).to receive(:english_text_content).and_return(["a"])
 
       expect(english_translator.translate.chomp).to eq("0.\n..\n..")
     end
 
     it 'ignores unknown characters' do
-      allow(english_translator).to receive(:content).and_return(["!"])
+      allow(english_translator).to receive(:english_text_content).and_return(["!"])
 
       expect(english_translator.translate.chomp).to eq("\n\n")
     end
