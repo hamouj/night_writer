@@ -1,6 +1,6 @@
 require './spec/spec_helper'
-require './lib/english_translator'
 require './lib/content_reader'
+require './lib/english_translator'
 
 describe EnglishTranslator do
   File.open('english_text_1.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
@@ -31,16 +31,25 @@ describe EnglishTranslator do
   end
 
   describe '#translate()' do
+    it 'translates english text to braille and makes a new line after 40 english characters (80 braille characters)' do
+      english_translator.translate
+      braille_text_1.rewind
+
+      expect(File.read(braille_text_1).lines.first.chomp.size).to eq(80)
+    end
+
     it 'translate the english text to braille' do
       allow(english_translator).to receive(:english_text_content).and_return(["a"])
 
-      expect(english_translator.translate.chomp).to eq("0.\n..\n..")
+      expect(english_translator.translate).to eq("0.\n..\n..\n")
     end
 
     it 'ignores unknown characters' do
       allow(english_translator).to receive(:english_text_content).and_return(["!"])
 
-      expect(english_translator.translate.chomp).to eq("\n\n")
+      expect(english_translator.translate).to eq("\n\n\n")
     end
+
+
   end
 end
