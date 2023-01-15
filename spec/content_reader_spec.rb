@@ -2,18 +2,27 @@ require './spec/spec_helper'
 require './lib/content_reader'
 
 describe ContentReader do
-  File.open('sample.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
-  english_text = File.open('sample.txt', "r")
-  braille_text = File.open('braille_sample.txt', "w")
+  File.open('english_sample.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
+  english_text_1 = File.open('english_text_1.txt', "r")
+  braille_text_1 = File.open('braille_text_1.txt', "w")
 
-  let(:content_reader) {ContentReader.new({
-    :english_text => english_text,
-    :braille_text => braille_text
+  File.open('braille_sample.txt', "w+") {|file| file.write(".00.00000.0...0.0.0..00.0.0....00.00.0\n0.....0.0..0..0.00..0.0.0..0..00.0..00\n0...0.0.0.......0.....0.0.....0...000.\n")}
+  braille_text_2 = File.open('braille_text_2.txt', "r")
+  english_text_2 = File.open('english_text_2.txt', "w")
+
+  let(:content_reader1) {ContentReader.new({
+    :english_text => english_text_1,
+    :braille_text => braille_text_1
+  })}
+
+  let(:content_reader2) {ContentReader.new({
+    :english_text => english_text_2,
+    :braille_text => braille_text_2
   })}
 
   describe '#initialize' do
     it 'exists' do
-      expect(content_reader).to be_a(ContentReader)
+      expect(content_reader1).to be_a(ContentReader)
     end
 
     it 'has attributes' do
