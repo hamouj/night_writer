@@ -5,8 +5,8 @@ class ContentReader
               :braille_text_content
 
   def initialize(locations)
-    @english_text = File.open(locations[:english_text], "r+")
-    @braille_text = File.open(locations[:braille_text], "r+")
+    @english_text = File.new(locations[:english_text], "a+")
+    @braille_text = File.new(locations[:braille_text], "a+")
     @english_text_character_count = @english_text.size
     @english_text_content = File.readlines(@english_text,40)
     @braille_text_character_count = @braille_text.size / 6
