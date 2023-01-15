@@ -6,7 +6,7 @@ describe ContentReader do
   english_text_1 = File.open('english_text_1.txt', "r")
   braille_text_1 = File.open('braille_text_1.txt', "w")
 
-  File.open('braille_text_2.txt', "w+") {|file| file.write(".00.00000.0...0.0.0..00.0.0....00.00.0\n0.....0.0..0..0.00..0.0.0..0..00.0..00\n0...0.0.0.......0.....0.0.....0...000.\n")}
+  File.open('braille_text_2.txt', "w+") {|file| file.write("0...0...00\n", "....0.....\n", "..........")}
   braille_text_2 = File.open('braille_text_2.txt', "r")
   english_text_2 = File.open('english_text_2.txt', "w")
 
@@ -57,20 +57,18 @@ describe ContentReader do
 
   describe '#night_reader_confirmation_message' do
     it 'returns a confirmation message' do
-      expect(content_reader2.night_reader_confirmation_message).to eq('Created english_text_2.txt containing 19 characters')
+      expect(content_reader2.night_reader_confirmation_message).to eq('Created english_text_2.txt containing 5 characters')
     end
   end
 
   describe '#braille_text_content' do
     it 'returns the content of the #braille_text file' do
-      expect(content_reader2.braille_text_content).to eq([".00.00000.0...0.0.0..00.0.0....00.00.0\n", "0.....0.0..0..0.00..0.0.0..0..00.0..00\n", "0...0.0.0.......0.....0.0.....0...000.\n"])
+      expect(content_reader2.braille_text_content).to eq(["0...0...00\n", "....0.....\n", ".........."])
     end
   end
 
   describe '#split_braille_text_content' do
     it 'splits text into characters' do
-      allow(content_reader2).to receive(:braille_text_content).and_return(["0...0...00\n", "....0.....\n", ".........."])
-
       expect(content_reader2.split_braille_text_content).to eq([["0.....", "......", "0.0...", "......", "00...."]])
     end
 
