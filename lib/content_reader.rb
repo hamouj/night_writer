@@ -25,7 +25,7 @@ class ContentReader
     "Created #{File.basename(@english_text)} containing #{@braille_text_character_count} characters"
   end
 
-  def split_braille_text_content
+  def split_braille_letters
     set_of_twos = braille_text_content.map {|line| line.scan(/../)}.compact
     set_of_twos = set_of_twos.reject{|element| element.empty?}
 
@@ -36,8 +36,11 @@ class ContentReader
       split_letters << set_of_twos[n].zip(set_of_twos[n+=1], set_of_twos[n+=1])
       n+=1
     end
+    split_letters
+  end
 
-    braille_split_content = split_letters.map do |line|
+  def split_braille_text_content
+    braille_split_content = split_braille_letters.map do |line|
       line.map do |letter|
         letter.join
       end
