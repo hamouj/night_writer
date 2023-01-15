@@ -41,7 +41,6 @@ describe EnglishTranslator do
   describe '#translate()' do
     it 'translates english text to braille and makes a new line after 40 english characters (80 braille characters)' do
       english_translator.translate
-      braille_text_1.rewind
 
       expect(content_reader.braille_text_content.first.chomp.size).to eq(80)
     end
