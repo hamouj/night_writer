@@ -26,8 +26,22 @@ class ContentReader
   end
 
   def split_braille_text_content
-    set_of_twos = braille_text_content.map {|line| line.scan(/../)}
-    split_letters = set_of_twos[0].zip(set_of_twos[1], set_of_twos[2])
-    braille_split_content = split_letters.map {|letter| letter.join}
+    set_of_twos = braille_text_content.map {|line| line.scan(/../)}.compact
+    set_of_twos = set_of_twos.reject{|element| element.empty?}
+
+    number_of_arrays = set_of_twos.size
+    split_letters = []
+    n = 0
+    while n != number_of_arrays
+      split_letters << set_of_twos[n].zip(set_of_twos[n+=1], set_of_twos[n+=1])
+      n+=1
+    end
+
+    braille_split_content = split_letters.map do |line|
+      line.map do |letter|
+        letter.join
+      end
+    end
+    braille_split_content
   end
 end
