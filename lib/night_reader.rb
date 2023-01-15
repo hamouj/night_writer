@@ -1,13 +1,16 @@
 require './lib/content_reader'
 require './lib/braille_translator'
 
-file_paths = {
-  english_text: ARGV[1],
-  braille_text: ARGV[0]
+english_text = File.open(ARGV[1], "w")
+braille_text = File.open(ARGV[o], "r")
+
+files = {
+  english_text: english_text,
+  braille_text: braille_text
 }
 
-content_reader = ContentReader.new(file_paths)
-braille_translator = BrailleTranslator.new(file_paths)
+content_reader = ContentReader.new(files)
+braille_translator = BrailleTranslator.new(files)
 
 braille_translator.translate
 
