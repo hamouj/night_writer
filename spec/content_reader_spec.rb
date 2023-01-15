@@ -3,10 +3,12 @@ require './lib/content_reader'
 
 describe ContentReader do
   File.open('sample.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
+  english_text = File.open('sample.txt', "r")
+  braille_text = File.open('braille_sample.txt', "w")
 
   let(:content_reader) {ContentReader.new({
-    :english_text => 'sample.txt',
-    :braille_text => 'braille_sample.txt'
+    :english_text => english_text,
+    :braille_text => braille_text
   })}
 
   describe '#initialize' do
