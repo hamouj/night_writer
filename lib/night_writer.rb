@@ -4,15 +4,13 @@ require './lib/english_translator'
 english_text = File.open(ARGV[0], "r")
 braille_text = File.open(ARGV[1], "w")
 
-content_reader = ContentReader.new({
+files = {
   english_text: english_text,
   braille_text: braille_text
-})
+}
 
-english_translator = EnglishTranslator.new({  
-  english_text: english_text,
-  braille_text: braille_text
-})
+content_reader = ContentReader.new(files)
+english_translator = EnglishTranslator.new(files)
 
 english_translator.translate
 
