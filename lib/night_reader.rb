@@ -2,7 +2,7 @@ require './lib/content_reader'
 require './lib/braille_translator'
 
 english_text = File.open(ARGV[1], "w")
-braille_text = File.open(ARGV[o], "r")
+braille_text = File.open(ARGV[0], "r")
 
 files = {
   english_text: english_text,
