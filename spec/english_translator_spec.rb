@@ -3,9 +3,8 @@ require './lib/content_reader'
 require './lib/english_translator'
 
 describe EnglishTranslator do
-  File.open('english_text_1.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
   english_text_1 = File.open('english_text_1.txt', "r")
-  braille_text_1 = File.open('braille_text_1.txt', "w")
+  braille_text_1 = File.open('braille_text_1.txt', "w+")
 
   let(:english_translator) {EnglishTranslator.new({
     :english_text => english_text_1,
