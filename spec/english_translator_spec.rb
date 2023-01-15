@@ -35,7 +35,7 @@ describe EnglishTranslator do
       english_translator.translate
       braille_text_1.rewind
 
-      expect(File.read(braille_text_1).lines.first.chomp.size).to eq(80)
+      expect(content_reader.braille_text_content.first.chomp.size).to eq(80)
     end
 
     it 'translate the english text to braille' do
