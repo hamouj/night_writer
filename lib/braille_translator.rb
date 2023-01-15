@@ -52,8 +52,9 @@ class BrailleTranslator < ContentReader
         line << letter if character == braille
       end
     end
-    english_text.write(line.join)
+    message = line.join
+    @english_text.write(message)
 
-    line.join
+    message
   end
 end
