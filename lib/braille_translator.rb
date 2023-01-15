@@ -42,4 +42,18 @@ class BrailleTranslator < ContentReader
       [b1, b1, b1].join => " "
     }
   end
+
+  def translate
+    split_content = split_braille_text_content
+    line = []
+
+    split_content.each do |character|
+      dictionary.each do |braille, letter|
+        line << letter if character == braille
+      end
+    end
+    english_text.write(line.join)
+
+    line.join
+  end
 end
