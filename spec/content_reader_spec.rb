@@ -41,9 +41,8 @@ describe ContentReader do
   end
 
   describe '#english_text_content' do
-    it 'returns the content of the #english_text file, split into lines (lines <= 40 characters)' do
-      expect(content_reader1.english_text_content).to eq(["the quick brown fox jumps over the lazy ", "dog"])
-      expect(content_reader1.english_text_content.size).to eq(2)
+    it 'returns the content of the #english_text file' do
+      expect(content_reader1.english_text_content).to eq(["the quick brown fox jumps over the lazy dog"])
     end
   end
 
@@ -51,7 +50,7 @@ describe ContentReader do
     it 'splits text into characters' do
       allow(content_reader1).to receive(:english_text_content).and_return(["a b c"])
 
-      expect(content_reader1.split_english_text_content).to eq([["a", " ", "b", " ", "c"]])
+      expect(content_reader1.split_english_text_content).to eq(["a", " ", "b", " ", "c"])
     end
   end
 
