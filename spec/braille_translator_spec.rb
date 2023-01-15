@@ -31,13 +31,7 @@ describe BrailleTranslator do
   end
 
   describe '#translate' do
-    it 'translates the braille text to english' do
-      expect(braille_translator.translate).to eq("sample braille text")
-    end
-
     it 'translates multiple lines of braille text to english' do
-      english_text_2 = File.open('english_text_2.txt', "w+")
-      
       allow(braille_translator).to receive(:braille_text_content).and_return([".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
         "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
         "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
@@ -46,6 +40,10 @@ describe BrailleTranslator do
       braille_translator.translate
       english_text_2.rewind
       expect(File.read(english_text_2)).to eq("this is a sample of a long text to show \na line break\n")
+    end
+
+    it 'translates the braille text to english' do
+      expect(braille_translator.translate).to eq("sample braille text")
     end
   end
 end
