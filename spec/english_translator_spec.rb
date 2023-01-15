@@ -49,7 +49,5 @@ describe EnglishTranslator do
 
       expect(english_translator.translate).to eq("\n\n\n")
     end
-
-
   end
 end
