@@ -8,7 +8,7 @@ class ContentReader
     @english_text = files[:english_text]
     @braille_text = files[:braille_text]
     @english_text_character_count = @english_text.size
-    @english_text_content = File.readlines(@english_text,40)
+    @english_text_content = File.readlines(@english_text)
     @braille_text_character_count = @braille_text.size / 6
     @braille_text_content = File.readlines(@braille_text,80)
   end
@@ -18,7 +18,7 @@ class ContentReader
   end
 
   def split_english_text_content
-    english_text_split_content = english_text_content.map {|line| line.split(//)}
+    english_text_content.first.split(//)
   end
 
   def night_reader_confirmation_message
