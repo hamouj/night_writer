@@ -41,13 +41,14 @@ describe ContentReader do
   end
 
   describe '#english_text_content' do
-    it 'returns the content of the #english_text file' do
+    it 'returns the content of the #english_text file, split into lines (lines <= 40 characters)' do
       expect(content_reader1.english_text_content).to eq(["the quick brown fox jumps over the lazy ", "dog"])
+      expect(content_reader1.english_text_content.size).to eq(2)
     end
   end
 
   describe '#split_english_text_content' do
-    it 'splits lines into characters' do
+    it 'splits text into characters' do
       allow(content_reader1).to receive(:english_text_content).and_return(["a b c"])
 
       expect(content_reader1.split_english_text_content).to eq([["a", " ", "b", " ", "c"]])
@@ -73,7 +74,7 @@ describe ContentReader do
       expect(content_reader2.split_braille_text_content).to eq([["0.....", "......", "0.0...", "......", "00...."]])
     end
 
-    it 'splits long texts into lines' do
+    it 'splits long texts(over 40 English characters) into lines' do
       # The incoming text is 52 english characters long
       allow(content_reader2).to receive(:braille_text_content).and_return([".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
         "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
