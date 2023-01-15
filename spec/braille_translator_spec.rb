@@ -27,4 +27,10 @@ describe BrailleTranslator do
       expect(braille_translator.dictionary["......"]).to eq(" ")
     end
   end
+
+  describe '#translate' do
+    it 'translates the braille text to english' do
+      expect(braille_translator.translate).to eq("sample braille text")
+    end
+  end
 end
