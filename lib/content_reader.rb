@@ -8,9 +8,9 @@ class ContentReader
     @english_text = File.open(locations[:english_text], "r+")
     @braille_text = File.open(locations[:braille_text], "r+")
     @english_text_character_count = @english_text.size
-    @english_text_content = IO.readlines(@english_text,40)
+    @english_text_content = File.readlines(@english_text,40)
     @braille_text_character_count = @braille_text.size / 6
-    @braille_text_content = IO.readlines(@braille_text,80)
+    @braille_text_content = File.readlines(@braille_text,80)
   end
 
   def night_writer_confirmation_message
