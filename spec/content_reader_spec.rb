@@ -69,7 +69,7 @@ describe ContentReader do
 
   describe '#split_braille_letters' do
     it 'splits braille text into individual letter arrays' do
-      expect(content_reader2.split_braille_text_content).to eq([["0.", "..",".."], ["..", "..", ".."], ["0.","0.",".."], ["..", "..", ".."], ["00", "..", ".."]])
+      expect(content_reader2.split_braille_letters).to eq([[["0.", "..",".."], ["..", "..", ".."], ["0.","0.",".."], ["..", "..", ".."], ["00", "..", ".."]]])
     end
   end
 
