@@ -3,7 +3,6 @@ require './lib/braille_translator'
 require './lib/content_reader'
 
 describe BrailleTranslator do 
-  File.open('braille_text_2.txt', "w+") {|file| file.write(".00.00000.0...0.0.0..00.0.0....00.00.0\n0.....0.0..0..0.00..0.0.0..0..00.0..00\n0...0.0.0.......0.....0.0.....0...000.\n")}
   braille_text_2 = File.open('braille_text_2.txt', "r")
   english_text_2 = File.open('english_text_2.txt', "w+")
 
@@ -31,8 +30,9 @@ describe BrailleTranslator do
   end
 
   describe '#tranlsate_a_line()' do
-    it 'translate a line of braille text to english and returns an array of each character' do
-      allow(braille_translator).to receive(:braille_text_content).and_return([".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
+    it 'translate a single line of braille text to english' do
+      allow(braille_translator).to receive(:braille_text_content).and_return(
+        [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
       "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
       "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
       "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
@@ -43,7 +43,8 @@ describe BrailleTranslator do
 
   describe '#translate' do
     it 'translates multiple lines of braille text to english' do
-      allow(braille_translator).to receive(:braille_text_content).and_return([".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
+      allow(braille_translator).to receive(:braille_text_content).and_return(
+        [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
       "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
       "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
       "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
@@ -54,7 +55,7 @@ describe BrailleTranslator do
     end
 
     it 'translates the braille text to english' do
-      expect(braille_translator.translate).to eq("sample braille text")
+      expect(braille_translator.translate).to eq("a b c")
     end
   end
 end
