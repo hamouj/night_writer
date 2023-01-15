@@ -2,11 +2,11 @@ require './spec/spec_helper'
 require './lib/content_reader'
 
 describe ContentReader do
-  File.open('english_sample.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
+  File.open('english_text_1.txt', "w+") {|file| file.write("the quick brown fox jumps over the lazy dog")}
   english_text_1 = File.open('english_text_1.txt', "r")
   braille_text_1 = File.open('braille_text_1.txt', "w")
 
-  File.open('braille_sample.txt', "w+") {|file| file.write(".00.00000.0...0.0.0..00.0.0....00.00.0\n0.....0.0..0..0.00..0.0.0..0..00.0..00\n0...0.0.0.......0.....0.0.....0...000.\n")}
+  File.open('braille_text_2.txt', "w+") {|file| file.write(".00.00000.0...0.0.0..00.0.0....00.00.0\n0.....0.0..0..0.00..0.0.0..0..00.0..00\n0...0.0.0.......0.....0.0.....0...000.\n")}
   braille_text_2 = File.open('braille_text_2.txt', "r")
   english_text_2 = File.open('english_text_2.txt', "w")
 
@@ -23,51 +23,54 @@ describe ContentReader do
   describe '#initialize' do
     it 'exists' do
       expect(content_reader1).to be_a(ContentReader)
+      expect(content_reader2).to be_a(ContentReader)
     end
 
     it 'has attributes' do
-      expect(content_reader.english_text).to be_a(File)
-      expect(content_reader.braille_text).to be_a(File)
+      expect(content_reader1.english_text).to be_a(File)
+      expect(content_reader1.braille_text).to be_a(File)
+      expect(content_reader2.english_text).to be_a(File)
+      expect(content_reader2.braille_text).to be_a(File)
     end
   end
 
   describe '#night_writer_confirmation_message' do
     it 'returns a confirmation message' do
-      expect(content_reader.night_writer_confirmation_message).to eq('Created braille_sample.txt containing 43 characters')
+      expect(content_reader1.night_writer_confirmation_message).to eq('Created braille_text_1.txt containing 43 characters')
     end
   end
 
   describe '#english_text_content' do
     it 'returns the content of the #english_text file' do
-      expect(content_reader.english_text_content).to eq(["the quick brown fox jumps over the lazy ", "dog"])
+      expect(content_reader1.english_text_content).to eq(["the quick brown fox jumps over the lazy ", "dog"])
     end
   end
 
   describe '#split_english_text_content' do
     it 'splits lines into characters' do
-      allow(content_reader).to receive(:english_text_content).and_return(["a b c"])
+      allow(content_reader1).to receive(:english_text_content).and_return(["a b c"])
 
-      expect(content_reader.split_english_text_content).to eq([["a", " ", "b", " ", "c"]])
+      expect(content_reader1.split_english_text_content).to eq([["a", " ", "b", " ", "c"]])
     end
   end
 
   describe '#night_reader_confirmation_message' do
     it 'returns a confirmation message' do
-      expect(content_reader.night_reader_confirmation_message).to eq('Created sample.txt containing 19 characters')
+      expect(content_reader2.night_reader_confirmation_message).to eq('Created english_text_2.txt containing 19 characters')
     end
   end
 
   describe '#braille_text_content' do
     it 'returns the content of the #braille_text file' do
-      expect(content_reader.braille_text_content).to eq([".00.00000.0...0.0.0..00.0.0....00.00.0\n", "0.....0.0..0..0.00..0.0.0..0..00.0..00\n", "0...0.0.0.......0.....0.0.....0...000.\n"])
+      expect(content_reader2.braille_text_content).to eq([".00.00000.0...0.0.0..00.0.0....00.00.0\n", "0.....0.0..0..0.00..0.0.0..0..00.0..00\n", "0...0.0.0.......0.....0.0.....0...000.\n"])
     end
   end
 
   describe '#split_braille_text_content' do
     it 'splits lines into characters' do
-      allow(content_reader).to receive(:braille_text_content).and_return(["0...0...00\n", "....0.....\n", ".........."])
+      allow(content_reader2).to receive(:braille_text_content).and_return(["0...0...00\n", "....0.....\n", ".........."])
 
-      expect(content_reader.split_braille_text_content).to eq(["0.....", "......", "0.0...", "......", "00...."])
+      expect(content_reader2.split_braille_text_content).to eq(["0.....", "......", "0.0...", "......", "00...."])
     end
   end
 end
