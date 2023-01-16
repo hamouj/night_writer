@@ -44,39 +44,40 @@ class EnglishTranslator < ContentReader
       "y" => [b4, b3, b4],
       "z" => [b2, b3, b4],
       " " => [b1, b1, b1],
-      "1" => [b3, b3, b4, b2, b1, b1],
-      "2" => [b3, b3, b4, b2, b2, b1],
-      "3" => [b3, b3, b4, b4, b1, b1],
-      "4" => [b3, b3, b4, b4, b3, b1],
-      "5" => [b3, b3, b4, b2, b3, b1],
-      "6" => [b3, b3, b4, b4, b2, b1],
-      "7" => [b3, b3, b4, b4, b4, b1],
-      "8" => [b3, b3, b4, b2, b4, b1],
-      "9" => [b3, b3, b4, b3, b2, b1],
-      "0" => [b3, b3, b4, b3, b4, b1]
+      "1" => [b2, b1, b1],
+      "2" => [b2, b2, b1],
+      "3" => [b4, b1, b1],
+      "4" => [b4, b3, b1],
+      "5" => [b2, b3, b1],
+      "6" => [b4, b2, b1],
+      "7" => [b4, b4, b1],
+      "8" => [b2, b4, b1],
+      "9" => [b3, b2, b1],
+      "0" => [b3, b4, b1],
+      "#" => [b3, b3, b4]
     }
   end
 
   def translate_entire_text
     numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    braille_content = []
 
     split_english_text_content.each_with_index do |character, i|
       if numbers.include?(character) && numbers.include?(split_english_text_content[i-1])
-        @line_1 << dictionary[character][3]
-        @line_2 << dictionary[character][4]
-        @line_3 << dictionary[character][5]
+        braille_content << dictionary[character]
       elsif numbers.include?(character) && !numbers.include?(split_english_text_content[i-1])
-        @line_1.concat([dictionary[character][0], dictionary[character][3]])
-        @line_2.concat([dictionary[character][1], dictionary[character][4]])
-        @line_3.concat([dictionary[character][2], dictionary[character][5]])
+        braille_content << dictionary["#"]
+        braille_content << dictionary[character]
       elsif dictionary.keys.include?(character)
-        @line_1 << dictionary[character][0]
-        @line_2 << dictionary[character][1]
-        @line_3 << dictionary[character][2]
+        braille_content << dictionary[character]
       else
         next
       end
     end
+
+    @line_1 = braille_content.transpose[0]
+    @line_2 = braille_content.transpose[1]
+    @line_3 = braille_content.transpose[2]
   end
 
   def translate
