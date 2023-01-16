@@ -60,8 +60,12 @@ class EnglishTranslator < ContentReader
   def translate_entire_text
     numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-    split_english_text_content.each do |character|
-      if numbers.include?(character)
+    split_english_text_content.each_with_index do |character, i|
+      if numbers.include?(character) && numbers.include?(split_english_text_content[i-1])
+        @line_1 << dictionary[character][3]
+        @line_2 << dictionary[character][4]
+        @line_3 << dictionary[character][5]
+      elsif numbers.include?(character) && !numbers.include?(split_english_text_content[i-1])
         @line_1.concat([dictionary[character][0], dictionary[character][3]])
         @line_2.concat([dictionary[character][1], dictionary[character][4]])
         @line_3.concat([dictionary[character][2], dictionary[character][5]])
