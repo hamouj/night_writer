@@ -26,7 +26,7 @@ describe EnglishTranslator do
       expect(english_translator.dictionary["a"]).to eq(["0.", "..", ".."])
       expect(english_translator.dictionary["m"]).to eq(["00", "..", "0."])
       expect(english_translator.dictionary[" "]).to eq(["..", "..", ".."])
-      expect(english_translator.dictionary["1"]).to eq([".0", ".0", "00", "0.", "..", ".."])
+      expect(english_translator.dictionary["1"]).to eq(["0.", "..", ".."])
     end
   end
 
@@ -58,9 +58,9 @@ describe EnglishTranslator do
     end
 
     it 'ignores unknown characters' do
-      allow(english_translator).to receive(:english_text_content).and_return(["!"])
+      allow(english_translator).to receive(:english_text_content).and_return(["hi!"])
 
-      expect(english_translator.translate).to eq(nil)
+      expect(english_translator.translate).to eq("0..0\n000.\n....\n")
     end
   end
 end
