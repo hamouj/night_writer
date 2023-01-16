@@ -6,13 +6,13 @@ class BrailleTranslator < ContentReader
     super(locations)
   end
 
-  def dictionary
+  def dictionary_letters
     b1 = ".."
     b2 = "0."
     b3 = ".0"
     b4 = "00"
 
-    dictionary = {
+    letters = {
       [b2, b1, b1].join => "a",
       [b2, b2, b1].join => "b",
       [b4, b1, b1].join => "c",
@@ -39,7 +39,27 @@ class BrailleTranslator < ContentReader
       [b4, b1, b4].join => "x",
       [b4, b3, b4].join => "y",
       [b2, b3, b4].join => "z",
-      [b1, b1, b1].join => " "
+      [b1, b1, b1].join => " ",
+    }
+  end
+
+  def dictionary_numbers
+    b1 = ".."
+    b2 = "0."
+    b3 = ".0"
+    b4 = "00"
+
+    numbers = {
+      [b2, b1, b1].join => "1",
+      [b2, b2, b1].join => "2",
+      [b4, b1, b1].join => "3",
+      [b4, b3, b1].join => "4",
+      [b2, b3, b1].join => "5",
+      [b4, b2, b1].join => "6",
+      [b4, b4, b1].join => "7",
+      [b2, b4, b1].join => "8",
+      [b3, b2, b1].join => "9",
+      [b3, b4, b1].join => "0"
     }
   end
 
@@ -47,9 +67,14 @@ class BrailleTranslator < ContentReader
     split_content = split_braille_text_content
     line = []
 
-    split_content[index].each do |character|
-      dictionary.each do |braille, letter|
-        line << letter if character == braille
+    split_content[index].each_with_index do |character, i|
+      if character == ".0.000" 
+        line << dictionary_numbers[split_content[index][i+1]]
+        split_content[index][i+1].clear
+      elsif dictionary_letters.include?(character)
+        line << dictionary_letters[character]
+      else
+        next
       end
     end
     line.join
