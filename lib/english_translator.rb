@@ -59,17 +59,18 @@ class EnglishTranslator < ContentReader
 
   def translate_entire_text
     numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
     split_english_text_content.each do |character|
-      dictionary.each do |english, braille|
-        if numbers.include?(character) && character == english
-          @line_1.concat(["#{braille[0]}", "#{braille[3]}"])
-          @line_2.concat(["#{braille[1]}", "#{braille[4]}"])
-          @line_3.concat(["#{braille[2]}", "#{braille[5]}"])
-        elsif character == english && !numbers.include?(character)
-          @line_1 << "#{braille[0]}"
-          @line_2 << "#{braille[1]}"
-          @line_3 << "#{braille[2]}"
-        end
+      if numbers.include?(character)
+        @line_1.concat([dictionary[character][0], dictionary[character][3]])
+        @line_2.concat([dictionary[character][1], dictionary[character][4]])
+        @line_3.concat([dictionary[character][2], dictionary[character][5]])
+      elsif dictionary.keys.include?(character)
+        @line_1 << dictionary[character][0]
+        @line_2 << dictionary[character][1]
+        @line_3 << dictionary[character][2]
+      else
+        next
       end
     end
   end
