@@ -68,7 +68,7 @@ class BrailleTranslator < ContentReader
     line = []
 
     split_content[index].each_with_index do |character, i|
-      if character == ".0.000" 
+      if character == ".0.000"
         line << dictionary_numbers[split_content[index][i+1]]
         split_content[index][i+1].clear
       elsif dictionary_letters.include?(character)
@@ -78,6 +78,8 @@ class BrailleTranslator < ContentReader
       end
     end
     line.join
+
+    
   end
 
   def translate
