@@ -48,7 +48,7 @@ describe EnglishTranslator do
     it 'translates english text with numbers to braille' do
       allow(english_translator).to receive(:english_text_content).and_return(["text with the number 3"])
 
-      expect(english_translator.translate).to eq(".00.00.0...0.0.00....00.0...000.000.0.0....0\n00.0..00..000.0000..0000.0...0....0..000...0\n0...000....0..0.....0.......0.000.....0...00\n")
+      expect(english_translator.translate).to eq(".00.00.0...0.0.00....00.0...000.000.0.0....000\n00.0..00..000.0000..0000.0...0....0..000...0..\n0...000....0..0.....0.......0.000.....0...00..\n")
     end
 
     it 'ignores unknown characters' do
