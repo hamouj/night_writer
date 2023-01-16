@@ -62,6 +62,13 @@ describe BrailleTranslator do
 
       expect(braille_translator.translate).to eq("text with the number 3")
     end
+
+    it 'translates braille text with multiple numbers to english' do
+      allow(braille_translator).to receive(:braille_text_content).and_return(
+        ["0....00.00..0.", "\n", ".....00..0..0.", "\n", "....00........", "\n"])
+
+        expect(braille_translator.translate).to eq("a 24 b")
+    end
   end
 end
 
