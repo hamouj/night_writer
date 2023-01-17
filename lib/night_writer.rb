@@ -14,6 +14,8 @@ if File.exist?(ARGV[0])
 
   english_translator.translate
   p content_reader.night_writer_confirmation_message
+  english_text.close
+  braille_text.close
 else 
   p "That file doesn't exist. Type in the name of an existing file for translation."
 end
