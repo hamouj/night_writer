@@ -10,7 +10,7 @@ class ContentReader
     @english_text_character_count = @english_text.size
     @english_text_content = File.read(@english_text)
     @braille_text_character_count = @braille_text.size / 6
-    @braille_text_content = File.readlines(@braille_text,80)
+    @braille_text_content = File.readlines(@braille_text)
   end
 
   def night_writer_confirmation_message
@@ -26,8 +26,7 @@ class ContentReader
   end
 
   def split_braille_letters
-    set_of_twos = braille_text_content.map {|line| line.scan(/../)}.compact
-    set_of_twos = set_of_twos.reject{|element| element.empty?}
+    set_of_twos = braille_text_content.map {|line| line.scan(/../)}
 
     number_of_arrays = set_of_twos.size
     split_letters = []

@@ -76,15 +76,5 @@ describe ContentReader do
     it 'splits text into characters' do
       expect(content_reader2.split_braille_text_content).to eq([["0.....", "......", "0.0...", "......", "00...."]])
     end
-
-    it 'splits long texts(over 40 English characters) into lines' do
-      # The incoming text is 52 english characters long
-      allow(content_reader2).to receive(:braille_text_content).and_return([".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
-        "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
-        "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
-        "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
-
-      expect(content_reader2.split_braille_text_content.size).to eq(2)
-    end
   end
 end

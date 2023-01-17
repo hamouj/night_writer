@@ -45,49 +45,50 @@ describe BrailleTranslator do
   describe '#translate_a_line()' do
     it 'translate a single line of braille text to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
-        [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
-      "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
-      "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
-      "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
+        [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..\n", 
+          "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..\n", 
+          "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..\n",
+          "0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
 
       line = ["0.....", "......", "0.0.0.", ".00...", "00.00.", "0..0..", "......", "0.0...", "0.000.", "0..0..", "0.....", "0...0."]
 
-    expect(braille_translator.translate_a_line(line)).to eq("a line break")
+    expect(braille_translator.translate_a_line(line)).to eq(["a", " ", "l", "i", "n", "e", " ", "b", "r", "e", "a", "k"])
     end
   end
 
   describe '#translate' do
-    it 'translates multiple lines of braille text to english' do
+    it 'translates multiple lines of braille text to english, returning 40 alpha characters per line' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
-        [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
-      "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
-      "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
-      "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
+        [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..\n", 
+          "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..\n", 
+          "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..\n",
+          "0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
 
       braille_translator.translate
       english_text_2.rewind
+      # incoming text is 52 alpha characters--translated text contains 40 alpha characters in the first line and 12 in the second.
       expect(File.read(english_text_2)).to eq("this is a sample of a long text to show \na line break\n")
     end
 
     it 'translates braille text with number symbols to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
-        [".00.00.0...0.0.00....00.0...000.000.0.0....000",
-          "\n", "00.0..00..000.0000..0000.0...0....0..000...0..",
-          "\n", "0...000....0..0.....0.......0.000.....0...00..", "\n"])
+        [".00.00.0...0.0.00....00.0...000.000.0.0....000\n", 
+          "00.0..00..000.0000..0000.0...0....0..000...0..\n", 
+          "0...000....0..0.....0.......0.000.....0...00..\n"])
 
       expect(braille_translator.translate).to eq("text with the number 3")
     end
 
     it 'translates braille text with multiple numbers to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
-        ["0....00.00..0.", "\n", ".....00..0..0.", "\n", "....00........", "\n"])
+        ["0....00.00..0.\n", ".....00..0..0.\n", "....00........\n"])
 
         expect(braille_translator.translate).to eq("a 24 b")
     end
 
     it 'translates braille text with capital letters to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
-        ["0.....0000", "\n", ".0.....0..", "\n", "00...00000", "\n"])
+        ["0.....0000\n", ".0.....0..\n", "00...00000\n"])
 
         expect(braille_translator.translate).to eq("z Yx")
     end
