@@ -63,34 +63,44 @@ class BrailleTranslator < ContentReader
     }
   end
 
-  def translate_a_line(index)
-    split_content = split_braille_text_content
-    line = []
-
-    split_content[index].each_with_index do |character, i|
+  def translate_a_line(line)
+    line_translation = []
+    index_condition = [nil, "......"]
+   
+    index = 0
+    line.each do |character|
       if character == ".0.000"
-        line << dictionary_numbers[split_content[index][i+1]]
-        split_content[index][i+1].clear
+        index += 1
+        while !index_condition.include?(line[index])
+          line_translation << dictionary_numbers[line[index]]
+          line[index].clear
+          index += 1
+        end
       elsif dictionary_letters.include?(character)
-        line << dictionary_letters[character]
+        line_translation << dictionary_letters[character]
       else
         next
       end
+    index += 1
     end
-    line.join
-
-    
+    line_translation.join
   end
 
   def translate
     split_content = split_braille_text_content
 
-    index=0
-    while index != split_content.size
-      message = translate_a_line(index)
+    # index=0
+    # while index != split_content.size
+    #   message = translate_a_line(index)
+    #   @english_text.write("#{message}\n")
+    #   translate_a_line(index).clear
+    #   index+=1
+    # end
+
+    message = ""
+    split_content.each do |line|
+      message = translate_a_line(line)
       @english_text.write("#{message}\n")
-      translate_a_line(index).clear
-      index+=1
     end
     message
   end
