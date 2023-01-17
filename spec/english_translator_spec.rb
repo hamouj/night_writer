@@ -69,6 +69,12 @@ describe EnglishTranslator do
       expect(english_translator.translate).to eq("0....00.00..0.\n.....00..0..0.\n....00........\n")
     end
 
+    it 'translates english text with capital letters to braille' do
+      allow(english_translator).to receive(:english_text_content).and_return("z Yx")
+
+      expect(english_translator.translate).to eq("0.....0000\n.0.....0..\n00...00000\n")
+    end
+
     it 'ignores unknown characters' do
       allow(english_translator).to receive(:english_text_content).and_return("hi!")
 
