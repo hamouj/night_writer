@@ -30,19 +30,21 @@ describe BrailleTranslator do
   end
 
   describe '#tranlsate_a_line()' do
-    xit 'translate a single line of braille text to english' do
+    it 'translate a single line of braille text to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
         [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
       "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
       "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
       "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
 
-    expect(braille_translator.translate_a_line(1)).to eq("a line break")
+      line = ["0.....", "......", "0.0.0.", ".00...", "00.00.", "0..0..", "......", "0.0...", "0.000.", "0..0..", "0.....", "0...0."]
+
+    expect(braille_translator.translate_a_line(line)).to eq("a line break")
     end
   end
 
   describe '#translate' do
-    xit 'translates multiple lines of braille text to english' do
+    it 'translates multiple lines of braille text to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
         [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
       "\n", "00000.0...0.0.......0.....0.0..0...00.......0..0.000..00.0..00..00.0..0.00.000..",
