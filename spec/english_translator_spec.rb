@@ -21,12 +21,17 @@ describe EnglishTranslator do
     end
   end
 
-  describe '#dictionary' do
-    it 'returns a hash with letters/contractions(keys) and braille translation(values)' do
-      expect(english_translator.dictionary["a"]).to eq(["0.", "..", ".."])
-      expect(english_translator.dictionary["m"]).to eq(["00", "..", "0."])
-      expect(english_translator.dictionary[" "]).to eq(["..", "..", ".."])
-      expect(english_translator.dictionary["1"]).to eq(["0.", "..", ".."])
+  describe '#lowercase_dictionary()' do
+    it 'returns a hash with lowercase letters(keys) and braille translations(values)' do
+      expect(english_translator.lowercase_english_to_braille_dictionary["a"]).to eq(["0.", "..", ".."])
+      expect(english_translator.lowercase_english_to_braille_dictionary["m"]).to eq(["00", "..", "0."])
+      expect(english_translator.lowercase_english_to_braille_dictionary[" "]).to eq(["..", "..", ".."])
+    end
+  end
+
+  describe '#number_dictionary()' do
+    it 'returns a hash with numbers(keys) and braille translations(values)' do
+      expect(english_translator.number_english_to_braille_dictionary["1"]).to eq(["0.", "..", ".."])
     end
   end
 
