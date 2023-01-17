@@ -1,7 +1,13 @@
 class EnglishTranslator < ContentReader
+  attr_reader  :line_1,
+                :line_2,
+                :line_3
 
   def initialize(locations)
     super(locations)
+    @line_1 = []
+    @line_2 = []
+    @line_3 = []
   end
 
   def dictionary
@@ -37,35 +43,56 @@ class EnglishTranslator < ContentReader
       "x" => [b4, b1, b4],
       "y" => [b4, b3, b4],
       "z" => [b2, b3, b4],
-      " " => [b1, b1, b1]
+      " " => [b1, b1, b1],
+      "1" => [b2, b1, b1],
+      "2" => [b2, b2, b1],
+      "3" => [b4, b1, b1],
+      "4" => [b4, b3, b1],
+      "5" => [b2, b3, b1],
+      "6" => [b4, b2, b1],
+      "7" => [b4, b4, b1],
+      "8" => [b2, b4, b1],
+      "9" => [b3, b2, b1],
+      "0" => [b3, b4, b1],
+      "#" => [b3, b3, b4]
     }
   end
 
-  def translate
-    number_of_lines = english_text_content.size
-    split_content = split_english_text_content
+  def translate_entire_text
+    numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    braille_content = []
 
-    line_1 = []
-    line_2 = []
-    line_3 = []
-    
-    n=0
-    while n != number_of_lines
-      split_content[n].each do |character|
-        dictionary.each do |letter, braille|
-          if character == letter
-            line_1 << "#{braille[0]}"
-            line_2 << "#{braille[1]}"
-            line_3 << "#{braille[2]}"
-          end
-        end
+    split_english_text_content.each_with_index do |character, i|
+      if numbers.include?(character) && numbers.include?(split_english_text_content[i-1])
+        braille_content << dictionary[character]
+      elsif numbers.include?(character) && !numbers.include?(split_english_text_content[i-1])
+        braille_content << dictionary["#"]
+        braille_content << dictionary[character]
+      elsif dictionary.keys.include?(character)
+        braille_content << dictionary[character]
+      else
+        next
       end
-      braille_translation = "#{line_1.join}\n#{line_2.join}\n#{line_3.join}\n"
+    end
+
+    @line_1 = braille_content.transpose[0]
+    @line_2 = braille_content.transpose[1]
+    @line_3 = braille_content.transpose[2]
+  end
+
+  def translate
+    translate_entire_text
+
+    line_1 = @line_1.each_slice(40).to_a
+    line_2 = @line_2.each_slice(40).to_a
+    line_3 = @line_3.each_slice(40).to_a
+    number_of_lines = line_1.size
+    
+    index = 0
+    while index != number_of_lines
+      braille_translation = "#{line_1[index].join}\n#{line_2[index].join}\n#{line_3[index].join}\n"
       braille_text.write(braille_translation)
-      line_1.clear
-      line_2.clear
-      line_3.clear
-      n+=1
+      index += 1
     end
     braille_translation
   end

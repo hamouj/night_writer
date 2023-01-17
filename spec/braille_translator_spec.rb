@@ -21,15 +21,21 @@ describe BrailleTranslator do
     end
   end
 
-  describe '#dictionary' do
+  describe '#dictionary_letters' do
     it 'returns a hash with braille letters(keys) and english translation(values)' do
-      expect(braille_translator.dictionary["0....."]).to eq("a")
-      expect(braille_translator.dictionary["00..0."]).to eq("m")
-      expect(braille_translator.dictionary["......"]).to eq(" ")
+      expect(braille_translator.dictionary_letters["0....."]).to eq("a")
+      expect(braille_translator.dictionary_letters["00..0."]).to eq("m")
+      expect(braille_translator.dictionary_letters["......"]).to eq(" ")
     end
   end
 
-  describe '#tranlsate_a_line()' do
+  describe '#dictionary_numbers' do
+    it 'returns a hash with braille numbers(keys) and english translation(values)' do
+      expect(braille_translator.dictionary_numbers["0..0.."]).to eq("5")
+    end
+  end
+
+  describe '#translate_a_line()' do
     it 'translate a single line of braille text to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
         [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
@@ -37,7 +43,9 @@ describe BrailleTranslator do
       "\n", "0.....0.....0.......0...0.0.0.....0.........0.0.0.....0...000...0.0...0...0..0..",
       "\n","0...0..0000...0.0.0.0.0.\n", "....0.0..0.0..0.00.0....\n", "....0...0.......0.....0.\n"])
 
-    expect(braille_translator.translate_a_line(1)).to eq("a line break")
+      line = ["0.....", "......", "0.0.0.", ".00...", "00.00.", "0..0..", "......", "0.0...", "0.000.", "0..0..", "0.....", "0...0."]
+
+    expect(braille_translator.translate_a_line(line)).to eq("a line break")
     end
   end
 
@@ -54,8 +62,21 @@ describe BrailleTranslator do
       expect(File.read(english_text_2)).to eq("this is a sample of a long text to show \na line break\n")
     end
 
-    it 'translates the braille text to english' do
-      expect(braille_translator.translate).to eq("a b c")
+    it 'translates braille text with number symbols to english' do
+      allow(braille_translator).to receive(:braille_text_content).and_return(
+        [".00.00.0...0.0.00....00.0...000.000.0.0....000",
+          "\n", "00.0..00..000.0000..0000.0...0....0..000...0..",
+          "\n", "0...000....0..0.....0.......0.000.....0...00..", "\n"])
+
+      expect(braille_translator.translate).to eq("text with the number 3")
+    end
+
+    it 'translates braille text with multiple numbers to english' do
+      allow(braille_translator).to receive(:braille_text_content).and_return(
+        ["0....00.00..0.", "\n", ".....00..0..0.", "\n", "....00........", "\n"])
+
+        expect(braille_translator.translate).to eq("a 24 b")
     end
   end
 end
+

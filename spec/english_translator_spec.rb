@@ -22,31 +22,45 @@ describe EnglishTranslator do
   end
 
   describe '#dictionary' do
-    it 'returns a hash with letters(keys) and braille translation (values)' do
+    it 'returns a hash with letters/contractions(keys) and braille translation(values)' do
       expect(english_translator.dictionary["a"]).to eq(["0.", "..", ".."])
       expect(english_translator.dictionary["m"]).to eq(["00", "..", "0."])
       expect(english_translator.dictionary[" "]).to eq(["..", "..", ".."])
+      expect(english_translator.dictionary["1"]).to eq(["0.", "..", ".."])
+    end
+  end
+
+  describe '#translate_entire_text' do
+    it 'translates the entire english text' do
+      english_translator.translate_entire_text
+
+      expect(english_translator.line_1.size).to eq(43)
     end
   end
 
   describe '#translate()' do
     it 'translates english text to braille and makes a new line after 40 english characters (80 braille characters)' do
       english_translator.translate
-      braille_text_1.rewind
 
       expect(content_reader.braille_text_content.first.chomp.size).to eq(80)
     end
 
-    it 'translate the english text to braille' do
-      allow(english_translator).to receive(:english_text_content).and_return(["a"])
+    it 'translates english text with numbers to braille' do
+      allow(english_translator).to receive(:english_text_content).and_return("text with the number 3")
 
-      expect(english_translator.translate).to eq("0.\n..\n..\n")
+      expect(english_translator.translate).to eq(".00.00.0...0.0.00....00.0...000.000.0.0....000\n00.0..00..000.0000..0000.0...0....0..000...0..\n0...000....0..0.....0.......0.000.....0...00..\n")
+    end
+
+    it 'translates english text with multiple numbers to braille' do
+      allow(english_translator).to receive(:english_text_content).and_return("a 24 b")
+
+      expect(english_translator.translate).to eq("0....00.00..0.\n.....00..0..0.\n....00........\n")
     end
 
     it 'ignores unknown characters' do
-      allow(english_translator).to receive(:english_text_content).and_return(["!"])
+      allow(english_translator).to receive(:english_text_content).and_return("hi!")
 
-      expect(english_translator.translate).to eq("\n\n\n")
+      expect(english_translator.translate).to eq("0..0\n000.\n....\n")
     end
   end
 end
