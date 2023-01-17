@@ -21,7 +21,7 @@ describe EnglishTranslator do
     end
   end
 
-  describe '#lowercase_dictionary()' do
+  describe '#lowercase_english_to_braille_dictionary' do
     it 'returns a hash with lowercase letters(keys) and braille translations(values)' do
       expect(english_translator.lowercase_english_to_braille_dictionary["a"]).to eq(["0.", "..", ".."])
       expect(english_translator.lowercase_english_to_braille_dictionary["m"]).to eq(["00", "..", "0."])
@@ -29,9 +29,16 @@ describe EnglishTranslator do
     end
   end
 
-  describe '#number_dictionary()' do
+  describe '#number_english_to_braille_dictionary' do
     it 'returns a hash with numbers(keys) and braille translations(values)' do
       expect(english_translator.number_english_to_braille_dictionary["1"]).to eq(["0.", "..", ".."])
+    end
+  end
+
+  describe '#uppercase_english_to_braille_dictionary' do
+    it 'returns a hash with uppercase letters(keys) and braille translations(values)' do
+      expect(english_translator.uppercase_english_to_braille_dictionary["B"]).to eq(["0.", "0.", ".."])
+      expect(english_translator.uppercase_english_to_braille_dictionary["Z"]).to eq(["0.", ".0", "00"])
     end
   end
 
