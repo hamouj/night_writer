@@ -35,17 +35,21 @@ class BrailleTranslator < ContentReader
       end
     index += 1
     end
-    line_translation.join
+    line_translation
   end
 
   def translate
     split_content = split_braille_text_content
+    message = []
 
-    message = ""
     split_content.each do |line|
-      message = translate_a_line(line)
-      @english_text.write("#{message}\n")
+      message.concat(translate_a_line(line))
     end
-    message
+    message = message.each_slice(40).to_a
+
+    message.each do |line|
+      english_text.write("#{line.join}\n")
+    end
+    message.join
   end
 end
