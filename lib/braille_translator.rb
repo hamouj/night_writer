@@ -8,6 +8,7 @@ class BrailleTranslator < ContentReader
     super(locations)
     @lowercase_dictionary = lowercase_braille_to_english_dictionary
     @number_dictionary = number_braille_to_english_dictionary
+    @uppercase_dictionary = uppercase_braille_to_english_dictionary
   end
 
   def translate_a_line(line)
@@ -23,6 +24,10 @@ class BrailleTranslator < ContentReader
           line[index].clear
           index += 1
         end
+      elsif character == ".....0"
+        index += 1
+        line_translation << @uppercase_dictionary[line[index]]
+        line[index].clear
       elsif @lowercase_dictionary.include?(character)
         line_translation << @lowercase_dictionary[character]
       else
