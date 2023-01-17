@@ -21,17 +21,17 @@ describe BrailleTranslator do
     end
   end
 
-  describe '#dictionary_letters' do
+  describe '#lowercase_braille_to_english_dictionary' do
     it 'returns a hash with braille letters(keys) and english translation(values)' do
-      expect(braille_translator.dictionary_letters["0....."]).to eq("a")
-      expect(braille_translator.dictionary_letters["00..0."]).to eq("m")
-      expect(braille_translator.dictionary_letters["......"]).to eq(" ")
+      expect(braille_translator.lowercase_braille_to_english_dictionary["0....."]).to eq("a")
+      expect(braille_translator.lowercase_braille_to_english_dictionary["00..0."]).to eq("m")
+      expect(braille_translator.lowercase_braille_to_english_dictionary["......"]).to eq(" ")
     end
   end
 
-  describe '#dictionary_numbers' do
+  describe '#number_braille_to_english_dictionary' do
     it 'returns a hash with braille numbers(keys) and english translation(values)' do
-      expect(braille_translator.dictionary_numbers["0..0.."]).to eq("5")
+      expect(braille_translator.number_braille_to_english_dictionary["0..0.."]).to eq("5")
     end
   end
 
