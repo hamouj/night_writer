@@ -37,7 +37,9 @@ module Dictionary
   end
 
   def lowercase_braille_to_english_dictionary
-    lowercase_english_to_braille_dictionary.invert
+    lowercase_braille_to_english_dictionary = {}
+    lowercase_english_to_braille_dictionary.invert.each {|braille, letter| lowercase_braille_to_english_dictionary[braille.join] = letter}
+    lowercase_braille_to_english_dictionary
   end
 
   def number_english_to_braille_dictionary
@@ -62,7 +64,9 @@ module Dictionary
   end
 
   def number_braille_to_english_dictionary
-    number_english_to_braille_dictionary.invert
+    number_braille_to_english_dictionary = {}
+    number_english_to_braille_dictionary.invert.each {|braille, number| number_braille_to_english_dictionary[braille.join] = number}
+    number_braille_to_english_dictionary
   end
 
   def uppercase_english_to_braille_dictionary
