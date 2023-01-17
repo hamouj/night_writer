@@ -51,7 +51,7 @@ describe EnglishTranslator do
       expect(english_translator.translate).to eq(".00.00.0...0.0.00....00.0...000.000.0.0....000\n00.0..00..000.0000..0000.0...0....0..000...0..\n0...000....0..0.....0.......0.000.....0...00..\n")
     end
 
-    it 'translated english text with multiple numbers to braille' do
+    it 'translates english text with multiple numbers to braille' do
       allow(english_translator).to receive(:english_text_content).and_return("a 24 b")
 
       expect(english_translator.translate).to eq("0....00.00..0.\n.....00..0..0.\n....00........\n")
