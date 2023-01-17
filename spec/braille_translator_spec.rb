@@ -29,7 +29,13 @@ describe BrailleTranslator do
     end
   end
 
-  describe '#tranlsate_a_line()' do
+  describe '#dictionary_numbers' do
+    it 'returns a hash with braille numbers(keys) and english translation(values)' do
+      expect(braille_translator.dictionary_numbers["0..0.."]).to eq("5")
+    end
+  end
+
+  describe '#translate_a_line()' do
     it 'translate a single line of braille text to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
         [".00..0.0...0.0..0....00.00000.0...0.00..0...0.0.0000...00.00.0...00....00.0..0..",
