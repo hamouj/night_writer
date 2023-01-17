@@ -101,11 +101,14 @@ module Dictionary
       "W" => [b3, b4, b3],
       "X" => [b4, b1, b4],
       "Y" => [b4, b3, b4],
-      "Z" => [b2, b3, b4]
+      "Z" => [b2, b3, b4],
+      "capital" => [b1, b1, b3]
     }
   end
 
   def uppercase_braille_to_english_dictionary
-    uppercase_english_to_braille_dictionary.invert 
+    uppercase_braille_to_english_dictionary = {}
+    uppercase_english_to_braille_dictionary.invert.each {|braille, letter| uppercase_braille_to_english_dictionary[braille.join] = letter}
+    uppercase_braille_to_english_dictionary
   end
 end
