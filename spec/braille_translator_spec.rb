@@ -84,6 +84,13 @@ describe BrailleTranslator do
 
         expect(braille_translator.translate).to eq("a 24 b")
     end
+
+    it 'translates braille text with capital letters to english' do
+      allow(braille_translator).to receive(:braille_text_content).and_return(
+        ["0.....0000", "\n", ".0.....0..", "\n", "00...00000", "\n"])
+
+        expect(braille_translator.translate).to eq("z Yx")
+    end
   end
 end
 
