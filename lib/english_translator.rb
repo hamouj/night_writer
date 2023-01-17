@@ -1,4 +1,6 @@
+require './lib/content_reader'
 require './lib/module/dictionary'
+
 class EnglishTranslator < ContentReader
   include Dictionary
 
@@ -13,6 +15,7 @@ class EnglishTranslator < ContentReader
     @line_3 = []
     @lowercase_dictionary = lowercase_english_to_braille_dictionary
     @number_dictionary = number_english_to_braille_dictionary
+    @uppercase_dictionary = uppercase_english_to_braille_dictionary
   end
 
   def translate_entire_text
@@ -27,6 +30,8 @@ class EnglishTranslator < ContentReader
         braille_content << @number_dictionary[character]
       elsif @lowercase_dictionary.keys.include?(character)
         braille_content << @lowercase_dictionary[character]
+      elsif @uppercase_dictionary.keys.include?(character)
+        braille_content.concat([@uppercase_dictionary["capital"], @uppercase_dictionary[character]])
       else
         next
       end
