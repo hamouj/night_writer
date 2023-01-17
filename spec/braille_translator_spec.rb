@@ -35,6 +35,13 @@ describe BrailleTranslator do
     end
   end
 
+  describe '#uppercase_braille_to_english_dictionary' do
+    it 'returns a hash with uppercase letters(keys) and english translation(values)' do
+      expect(braille_translator.uppercase_braille_to_english_dictionary["0.0..."]).to eq("B")
+      expect(braille_translator.uppercase_braille_to_english_dictionary[".....0"]).to eq("capital")
+    end
+  end
+
   describe '#translate_a_line()' do
     it 'translate a single line of braille text to english' do
       allow(braille_translator).to receive(:braille_text_content).and_return(
